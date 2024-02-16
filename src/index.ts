@@ -9,7 +9,6 @@ import corsOptions from "./config/corsOptions";
 import errorHandler from "./middlewares/errorHandler";
 import { logEvents, logger } from "./utils/logger";
 
-import root from "./routes/root";
 import myUserRoute from "./routes/myUserRoute";
 
 const app = express();
@@ -31,20 +30,7 @@ app.get("/health", async (req: Request, res: Response) => {
   res.send({ message: "health OK!" });
 });
 
-app.use("/", root);
 app.use("/api/v1/my/user", myUserRoute);
-
-app.all("*", (req, res) => {
-  res.status(404);
-
-  if (req.accepts("html")) {
-    res.sendFile(path.join(__dirname, "views", "404.html"));
-  } else if (req.accepts("json")) {
-    res.json({ message: "404 Introuvable" });
-  } else {
-    res.type("txt").send("404 Introuvable");
-  }
-});
 
 app.use(errorHandler);
 
