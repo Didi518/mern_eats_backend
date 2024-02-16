@@ -6,10 +6,12 @@ import "dotenv/config";
 
 import connectDatabse from "./config/database";
 import corsOptions from "./config/corsOptions";
+import cloudinaryConfig from "./config/cloudinary";
 import errorHandler from "./middlewares/errorHandler";
 import { logEvents, logger } from "./utils/logger";
 
 import myUserRoute from "./routes/myUserRoute";
+import myRestaurantRoute from "./routes/myRestaurantRoute";
 
 const app = express();
 
@@ -18,6 +20,8 @@ const PORT = process.env.PORT || 5000;
 console.log(process.env.NODE_ENV);
 
 connectDatabse();
+
+cloudinaryConfig;
 
 app.use(logger);
 
@@ -31,6 +35,7 @@ app.get("/health", async (req: Request, res: Response) => {
 });
 
 app.use("/api/v1/my/user", myUserRoute);
+app.use("/api/v1/my/restaurant", myRestaurantRoute);
 
 app.use(errorHandler);
 

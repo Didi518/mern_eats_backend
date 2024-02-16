@@ -27,8 +27,8 @@ const createCurrentUser = async (req: Request, res: Response) => {
     }
 
     const newUser = new User(req.body);
-    await newUser.save();
 
+    await newUser.save();
     res.status(201).json(newUser.toObject());
   } catch (error) {
     console.log(error);
@@ -52,7 +52,6 @@ const updateCurrentUser = async (req: Request, res: Response) => {
     user.country = country;
 
     await user.save();
-
     res.send(user);
   } catch (error) {
     console.log(error);
