@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { body, validationResult } from "express-validator";
+import { body, param, validationResult } from "express-validator";
 
 const handleValidationError = async (
   req: Request,
@@ -54,4 +54,12 @@ export const validateMyRestaurantRequest = [
     .isFloat({ min: 0 })
     .withMessage("Le prix du menu est requis et doit être un nombre positif"),
   handleValidationError,
+];
+
+export const validateRestaurantRequest = [
+  param("city")
+    .isString()
+    .trim()
+    .notEmpty()
+    .withMessage("Le paramètre de la ville est requis"),
 ];

@@ -12,6 +12,7 @@ import { logEvents, logger } from "./utils/logger";
 
 import myUserRoute from "./routes/myUserRoute";
 import myRestaurantRoute from "./routes/myRestaurantRoute";
+import restaurantRoute from "./routes/restaurantRoute";
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.get("/health", async (req: Request, res: Response) => {
 
 app.use("/api/v1/my/user", myUserRoute);
 app.use("/api/v1/my/restaurant", myRestaurantRoute);
+app.use("/api/v1/restaurant", restaurantRoute);
 
 app.use(errorHandler);
 
