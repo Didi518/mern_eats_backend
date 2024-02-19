@@ -7,6 +7,20 @@ import { validateMyRestaurantRequest } from "../middlewares/validation";
 
 const router = express.Router();
 
+router.get(
+  "/order",
+  jwtCheck,
+  jwtParse,
+  myRestaurantController.getMyRestaurantOrders
+);
+
+router.patch(
+  "/order/:orderId/status",
+  jwtCheck,
+  jwtParse,
+  myRestaurantController.updateOrderStatus
+);
+
 router
   .route("/")
   .get(jwtCheck, jwtParse, myRestaurantController.getMyRestaurant)

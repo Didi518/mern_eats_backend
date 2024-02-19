@@ -9,6 +9,19 @@ import Order from "../models/orderSchema";
 const STRIPE = new Stripe(process.env.STRIPE_API_KEY as string);
 const STRIPE_ENDPOINT_SECRET = process.env.STRIPE_WEBHOOK_SECRET as string;
 
+const getMyOrders = async (req: Request, res: Response) => {
+  try {
+    const orders = await Order.find({ user: req.userId })
+      .populate("restaurant")
+      .populate("user");
+
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Une erreur est survenue" });
+  }
+};
+
 const stripeWebhookHandler = async (req: Request, res: Response) => {
   let event;
 
@@ -33,7 +46,7 @@ const stripeWebhookHandler = async (req: Request, res: Response) => {
     }
 
     order.totalAmount = event.data.object.amount_total;
-    order.status = "payée";
+    order.status = "réglée";
 
     await order.save();
   }
@@ -88,4 +101,4 @@ const createCheckoutSession = async (req: Request, res: Response) => {
   }
 };
 
-export default { stripeWebhookHandler, createCheckoutSession };
+export default { getMyOrders, stripeWebhookHandler, createCheckoutSession };

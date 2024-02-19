@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema({
-  retaurant: {
+  restaurant: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Restaurant",
   },
@@ -50,14 +50,10 @@ const orderSchema = new mongoose.Schema({
   totalAmount: Number,
   status: {
     type: String,
-    enum: ["commandée", "payée", "en cours", "en cours de livraison", "livrée"],
+    enum: ["commandée", "réglée", "enCours", "livraisonEnRoute", "livrée"],
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  createdAt: { type: Date, default: Date.now },
 });
 
 const Order = mongoose.model("Order", orderSchema);
-
 export default Order;
