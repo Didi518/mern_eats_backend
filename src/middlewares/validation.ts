@@ -56,10 +56,18 @@ export const validateMyRestaurantRequest = [
   handleValidationError,
 ];
 
-export const validateRestaurantRequest = [
+export const validateSearchRestaurantRequest = [
   param("city")
     .isString()
     .trim()
     .notEmpty()
     .withMessage("Le paramètre de la ville est requis"),
+];
+
+export const validateGetRestaurantRequest = [
+  param("restaurantId")
+    .isString()
+    .trim()
+    .notEmpty()
+    .withMessage("Le paramètre de l'identifiant du restaurant est requis"),
 ];
